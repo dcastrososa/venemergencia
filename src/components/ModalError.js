@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Modal } from "antd";
 
 export const ModalError = ({ visible, error, onOk, onCancel }) => {

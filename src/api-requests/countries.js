@@ -5,8 +5,8 @@ class CountriesRaw {
     this.path = "countries";
   }
 
-  async get() {
-    return await Connection.get(`${this.path}/en-US`);
+  get() {
+    return Connection.get(`${this.path}/en-US`);
   }
 }
 

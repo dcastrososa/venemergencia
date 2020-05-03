@@ -2,21 +2,38 @@ import { useEffect, useState, useCallback, useMemo } from "react";
 import { Flights } from "./../../api-requests";
 import { message } from "antd";
 
-export const useSearchLogic = () => {
+export const useSearchLogic = (match) => {
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const initResults = useCallback(async () => {
     try {
-      const response = await Flights.get();
-      const json = await response.json();
-      setResults(json.Quotes);
+      const { params } = match;
+      const {
+        country,
+        currency,
+        originplace,
+        destinationplace,
+        outboundpartialdate,
+        inboundpartialdate,
+      } = params;
+      const { data } = await Flights.get(
+        country,
+        currency,
+        originplace,
+        destinationplace,
+        outboundpartialdate,
+        inboundpartialdate
+      );
+      setResults(data.Quotes);
+      if (!data.Quotes.length)
+        message.warning("No se encontraron resultados :(");
     } catch (err) {
-      message.error("Lo sentimos, hubo un error, intente mas tarde.");
+      message.error("Lo sentimos, hubo un error. Intente buscando nuevamente");
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [match]);
 
   useEffect(() => {
     initResults();
@@ -34,6 +51,7 @@ export const useSearchLogic = () => {
         title: "Precio Minimo",
         dataIndex: "MinPrice",
         key: "MinPrice",
+        render: (value) => `${value},00 ${match.params.currency}`,
       },
       {
         title: "Fecha de Salida",

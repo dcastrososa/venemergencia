@@ -2,7 +2,7 @@ import { Connection } from "./Connection";
 
 class CurrenciesRaw {
   constructor() {
-    this.path = "currencies";
+    this.path = "apiservices/reference/v1.0/currencies";
   }
 
   get() {

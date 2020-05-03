@@ -1,68 +1,17 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Prueba Daniel Castro
 
-## Available Scripts
+En el archivo config se encuentran las variables de configuracion del proyecto.
 
-In the project directory, you can run:
+Para la busqueda de vuelos, se deben rellenar todos los campos del formulario, y de ahi sera redirigido a la pagina "search",
+en caso de no encontrar resultados la tabla se mostrara vacia una vez terminada la request.
 
-### `yarn start`
+Si en el formulario no logras dar con valores para conseguir resultados, dejo esta que si trae resultados!
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+search/US/USD/en-US/SFO-sky/JFK-sky/2020-06-21/2020-06-25
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+La aplicacion cuenta con un Context donde esta la data que sera compartida entre distintos componentes, como por ejemplo: paises y monedas.
+Aunque en este ejmplo no hay mas componentes que usen esta data, lo use para demostrar el uso de context.
 
-### `yarn test`
+La razon por la que en el context use Class y no hook es porque no me gusta la sintaxis de hooks para manejar estados complejos.
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+En caso de que falle la obtencion de data necesario para el funcionamiento de la app, dispara un modal de que hubo un error y la da al usuario la opcion de recargar la pagina.

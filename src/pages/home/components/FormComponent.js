@@ -1,6 +1,16 @@
 import React, { useContext } from "react";
-import { Form, Select, DatePicker, Button, Row, Card } from "antd";
+import {
+  Form,
+  Select,
+  DatePicker,
+  Button,
+  Row,
+  Card,
+  AutoComplete,
+} from "antd";
 import { AppContext } from "../../../context/App.context";
+import { useFormComponentLogic } from "./FormComponentLogic";
+import { withRouter } from "react-router";
 const { Item } = Form;
 const { Option } = Select;
 const { RangePicker } = DatePicker;
@@ -13,17 +23,21 @@ const tailLayout = {
   wrapperCol: { offset: 8, span: 16 },
 };
 
-export const FormComponent = () => {
+const FormComponentRaw = ({ history }) => {
+  const [form] = Form.useForm();
   const { currencies, countries } = useContext(AppContext);
-
-  const onFinish = (values) => {
-    console.log("values", values);
-  };
+  const {
+    onSeachPlaceOrigin,
+    placesOrigin,
+    onSearchPlaceDestination,
+    placesDestination,
+    onFinish,
+  } = useFormComponentLogic(form, history);
 
   return (
     <Row>
       <Card>
-        <Form {...layout} onFinish={onFinish}>
+        <Form {...layout} onFinish={onFinish} form={form}>
           <Item
             label="Pais"
             rules={[
@@ -32,9 +46,9 @@ export const FormComponent = () => {
                 message: "Por favor selecciona el pais",
               },
             ]}
-            name="pais"
+            name="country"
           >
-            <Select>
+            <Select showSearch>
               {countries.map(({ Code, Name }) => (
                 <Option key={Code} value={Code}>
                   {Name}
@@ -51,7 +65,7 @@ export const FormComponent = () => {
                 message: "Por favor selecciona la moneda",
               },
             ]}
-            name="moneda"
+            name="currency"
           >
             <Select>
               {currencies.map(({ Code, Symbol }) => (
@@ -70,12 +84,12 @@ export const FormComponent = () => {
                 message: "Por favor selecciona la ciudad de origen",
               },
             ]}
-            name="ciudad-origen"
+            name="originplace"
           >
-            <Select>
-              <Option value="ve">Venezuela</Option>
-              <Option value="rs">Rusia</Option>
-            </Select>
+            <AutoComplete
+              onSearch={onSeachPlaceOrigin}
+              options={placesOrigin}
+            />
           </Item>
 
           <Item
@@ -86,12 +100,12 @@ export const FormComponent = () => {
                 message: "Por favor selecciona la ciudad de destino",
               },
             ]}
-            name="ciudad-destino"
+            name="destinationplace"
           >
-            <Select>
-              <Option value="ve">Venezuela</Option>
-              <Option value="rsI">Rusia</Option>
-            </Select>
+            <AutoComplete
+              onSearch={onSearchPlaceDestination}
+              options={placesDestination}
+            />
           </Item>
 
           <Item
@@ -103,7 +117,7 @@ export const FormComponent = () => {
                   "Por favor selecciona la fecha de partida y fecha de regreso",
               },
             ]}
-            name="fechas"
+            name="dates"
           >
             <RangePicker />
           </Item>
@@ -118,3 +132,5 @@ export const FormComponent = () => {
     </Row>
   );
 };
+
+export const FormComponent = withRouter(FormComponentRaw);

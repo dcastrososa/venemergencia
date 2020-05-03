@@ -7,6 +7,15 @@ class FlightsRaw {
     this.path = "apiservices/browsequotes/v1.0";
   }
 
+  /**
+   * 
+   * @param {String} country, Code of country 
+   * @param {String} currency, Code of currency 
+   * @param {String} originplace, Code of city of origen 
+   * @param {String} destinationplace, Code of city of destination 
+   * @param {String} outboundpartialdate, Date in format "YYY-MM-FF" 
+   * @param {String} inboundpartialdate, Date in format "YYY-MM-FF" 
+   */
   get(
     country,
     currency,
